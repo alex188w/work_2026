@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: work
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/work_db?useUnicode=true&characterEncoding=UTF-8
+    hikari.connection-init-sql: SET client_encoding TO 'UTF8'
+    username: postgres
+    password: 18091971
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+    show-sql: true

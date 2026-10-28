@@ -1,0 +1,47 @@
+<div th:fragment="sidebar">
+    <h3>Запланированные работы</h3>
+
+    <!-- 🔽 НЕДЕЛЯ -->
+    <div class="sidebar-block">
+        <button class="toggle-btn" onclick="toggle(this)">▶</button>
+        <strong>На неделю</strong>
+
+        <ul style="display:none;">
+            <li th:each="work : ${weekWorks}">
+
+                <div>
+                    <b th:text="${work.ustanovka.name}"></b>
+                </div>
+
+                <div style="font-size:13px;">
+                    <span th:text="${#temporals.format(work.workDate, 'dd.MM.yyyy')}"></span>
+                    —
+                    <span th:text="${work.typeOfWork}"></span>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+    <!-- 🔽 МЕСЯЦ -->
+    <div class="sidebar-block">
+        <button class="toggle-btn" onclick="toggle(this)">▶</button>
+        <strong>На месяц</strong>
+
+        <ul style="display:none;">
+            <li th:each="work : ${monthWorks}">
+
+                <div>
+                    <b th:text="${work.ustanovka.name}"></b>
+                </div>
+
+                <div style="font-size:13px;">
+                    <span th:text="${#temporals.format(work.workDate, 'dd.MM.yyyy')}"></span>
+                    —
+                    <span th:text="${work.typeOfWork}"></span>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>

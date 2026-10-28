@@ -1,0 +1,224 @@
+/* celestra font */
+@import url('https://fonts.googleapis.com/css?family=Literata:300,400,700&amp;subset=cyrillic&amp;display=swap');
+
+
+/* html, body {font-family: 'Literata', serif; font-size: 14px !important;} */
+/* h1,h2,h3,h4,h5,h6, .h1,.h2,.h3,.h4,.h5,.h6 {font-weight:500 !important;} */
+/* body, .btn {font-weight: 400 !important;} */
+h3 {
+  font-size: 16px;
+  /* font-size: 1.6rem; */
+  font-weight: 400;
+  line-height: 1.6rem;
+}
+
+h2 {
+  font-size: 28px;
+  /* font-size: 1.6rem; */
+  font-weight: 400;
+  line-height: 1.6rem;
+  /* font-size: 2.0rem; */
+  /* line-height: 2.4rem; */
+}
+
+/* h1, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+  padding: inherit;
+} */
+
+.modal .form-label {
+  margin-bottom: 0 !important;
+}
+
+.navbar-nav {
+  font-weight: 500 !important;
+}
+
+.navbar .btn {
+  font-weight: 500 !important;
+}
+
+body,
+.btn {
+  line-height: 1.6 !important;
+}
+
+h1,
+h2,
+.h1,
+.h2 {
+  margin-bottom: 2rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 2rem !important;
+}
+
+.lightbox .mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+p.lead {
+  margin-bottom: 2rem !important;
+}
+
+p {
+  text-align: center !important;
+}
+
+th {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+td {
+  text-align: center !important;
+  vertical-align: middle !important;
+  padding-top: 10px;
+}
+
+table {
+  caption-side: bottom !important;
+  border-collapse: inherit !important;
+}
+
+.article-body p {
+  margin-bottom: 1rem;
+}
+
+.article-body h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.article-body h3 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+:root {
+  --list-gutter: 2rem;
+  --fm-gutter-x: 2rem;
+}
+
+.h-underline-1 {
+  margin-bottom: 4rem;
+}
+
+@media (min-width: 1200px) {
+
+  .h1,
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+
+/* celestra color scheme */
+:root {
+  --primary: #886F6F;
+  --secondary: #694E4E;
+  --info: #F3C5C5;
+  --light: #FAF9F8;
+  --mobile-bg: var(--light);
+  --header-height: 128px;
+  --navbar-font-size: 14px;
+  --navbar-hover-bg: var(--body-bg);
+}
+
+.btn-primary {
+  border-color: #886F6F !important;
+  background-color: #886F6F !important
+}
+
+.btn-primary:hover {
+  border-color: #7a6464 !important;
+  background-color: #7a6464 !important
+}
+
+.btn-primary.active {
+  border-color: #7a6464 !important;
+  background-color: #7a6464 !important
+}
+
+.bg-primary .btn-primary {
+  border-color: #7a6464 !important;
+  background-color: #7a6464 !important
+}
+
+.bg-primary .btn-primary:hover {
+  border-color: #6e5a5a !important;
+  background-color: #6e5a5a !important
+}
+
+.btn-secondary {
+  border-color: #694E4E !important;
+  background-color: #694E4E !important
+}
+
+.btn-secondary:hover {
+  border-color: #5f4646 !important;
+  background-color: #5f4646 !important
+}
+
+.btn-secondary.active {
+  border-color: #5f4646 !important;
+  background-color: #5f4646 !important
+}
+
+.btn-info {
+  border-color: #F3C5C5 !important;
+  background-color: #F3C5C5 !important
+}
+
+.btn-info:hover {
+  border-color: #dbb1b1 !important;
+  background-color: #dbb1b1 !important
+}
+
+.btn-info.active {
+  border-color: #dbb1b1 !important;
+  background-color: #dbb1b1 !important
+}
+
+.bg-info .btn-info {
+  border-color: #dbb1b1 !important;
+  background-color: #dbb1b1 !important
+}
+
+.bg-info .btn-info:hover {
+  border-color: #c59f9f !important;
+  background-color: #c59f9f !important
+}
+
+.btn-light {
+  border-color: #FAF9F8 !important;
+  background-color: #d8dcde !important
+}
+
+.btn-light:hover {
+  border-color: #e1e0df !important;
+  background-color: #e1e0df !important
+}
+
+.btn-light.active {
+  border-color: #e1e0df !important;
+  background-color: #e1e0df !important
+}
+
+.bg-light .btn-light {
+  border-color: #eeedec !important;
+  background-color: #677587 !important
+}
+
+.bg-light .btn-light:hover {
+  border-color: #d6d5d4 !important;
+  background-color: #d6d5d4 !important
+}
+
+.bg-light .btn-light.active {
+  border-color: #d6d5d4 !important;
+  background-color: #d6d5d4 !important
+}

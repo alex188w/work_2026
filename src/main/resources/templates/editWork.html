@@ -1,0 +1,237 @@
+<!-- <div th:fragment="editWorkModal (work, ustanovka_id, ustanovkaName)">
+    
+    <div class="modal fade" th:id="'editWorkModal-' + ${work.id}" tabindex="-1"> -->
+
+<div th:fragment="editWorkModal">
+
+    <div class="modal fade" id="editWorkModal" tabindex="-1">
+
+        <div class="modal-dialog modal-lg modal-center">
+            <div class="modal-content bg-body">
+
+                <!-- HEADER -->
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <!-- <h5 th:text="${work.done} ? 'Изменить результаты проведения' : 'Внести результаты проведения'"> -->
+                        <h5>Изменить результаты проведения</h5>
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- FORM -->
+                <!-- <form th:action="@{/work/{id}/update(id=${work.id})}" method="post" enctype="multipart/form-data"> -->
+                <form id="editWorkForm" method="post" enctype="multipart/form-data">
+
+                    <div class="modal-body">
+
+                        <!-- 🔹 ID / NAME / DATE / TYPE -->
+                        <div class="modal-add">
+
+                            <div class="token col-sm-2 pb-2">
+                                <label class="form-label">id установки</label>
+                                <!-- <input type="number" name="ustanovka_id" th:value="${ustanovka_id}" -->
+                                <input id="ustanovka_id" type="number" name="ustanovka_id" th:value="${ustanovka_id}"
+                                    class="form-control">
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+                                <label class="form-label">Наименование</label>
+                                <input id="ustanovka_name" type="text" th:value="${ustanovkaName}" class="form-control">
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+                                <label class="form-label">Дата</label>
+                                <!-- <input type="date" name="work_date"
+                                    th:value="${#temporals.format(work.workDate,'yyyy-MM-dd')}" class="form-control"> -->
+                                <input type="date" name="workDate" class="form-control">
+
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+                                <label class="form-label">Вид работ</label>
+                                <!-- <select name="type_of_work" class="form-control"> -->
+                                <select name="typeOfWork" class="form-control">
+                                    <option value="ТО" th:selected="${typeOfWork == 'ТО'}">ТО</option>
+                                    <option value="ТР" th:selected="${typeOfWork == 'ТР'}">ТР</option>
+                                    <option value="ВНЕПЛАНОВЫЕ" th:selected="${typeOfWork == 'ВНЕПЛАНОВЫЕ'}">
+                                        ВНЕПЛАНОВЫЕ
+                                    </option>
+                                    <option value="АО" th:selected="${typeOfWork == 'АО'}">АО</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <!-- 🔹 ПАРАМЕТРЫ -->
+                        <!-- <div class="parametr" th:if="${ustanovka.type != 'aeline'}"></div> -->
+
+                        <th:block th:if="${ustanovka.type == 'ukz'}">
+                            <div th:replace="~{fragments/params/ukz-params :: params}"></div>
+                        </th:block>
+
+                        <th:block th:if="${ustanovka.type == 'udz'}">
+                            <div th:replace="~{fragments/params/udz-params :: params}"></div>
+                        </th:block>
+
+                        <th:block th:if="${ustanovka.type == 'upz'}">
+                            <div th:replace="~{fragments/params/upz-params :: params}"></div>
+                        </th:block>
+
+                        <!-- 🔹 ТЕКСТЫ -->
+                        <div class="work">
+                            <div class="worker">
+
+                                <div class="token col-sm- pb-1">
+                                    <label class="form-label">Исполнители</label>
+                                    <!-- <textarea name="workPerformers" class="form-control" style="height:100px"
+                                        th:text="${work.workPerformers}"></textarea> -->
+                                    <textarea name="workPerformers" class="form-control"
+                                        style="height:100px"></textarea>
+                                </div>
+
+                                <div class="token col-sm-5 pb-1">
+                                    <label class="form-label">Описание работ</label>
+                                    <!-- <textarea name="workDescription" class="form-control" style="height:100px"
+                                        th:text="${work.workDescription}"></textarea> -->
+                                    <textarea name="workDescription" class="form-control"
+                                        style="height:100px"></textarea>
+                                </div>
+
+                                <div class="token col-sm-4 pb-1">
+                                    <label class="form-label">Замечания</label>
+                                    <!-- <textarea name="remarks" class="form-control" style="height:100px"
+                                        th:text="${work.remarks}"></textarea> -->
+                                    <textarea name="remarks" class="form-control" style="height:100px"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 🔹 ЧЕКБОКСЫ -->
+                        <!-- <div class="journal">                            
+                        </div> -->
+
+                        <th:block th:if="${ustanovka.type == 'ukz'}">
+                            <div th:replace="~{fragments/journals/ukz-journal :: journal}"></div>
+                        </th:block>
+
+                        <th:block th:if="${ustanovka.type == 'udz'}">
+                            <div th:replace="~{fragments/journals/udz-journal :: journal}"></div>
+                        </th:block>
+
+                        <th:block th:if="${ustanovka.type == 'upz'}">
+                            <div th:replace="~{fragments/journals/pkz-journal :: journal}"></div>
+                        </th:block>
+
+                        <th:block th:if="${ustanovka.type == 'aeline'}">
+                            <div th:replace="~{fragments/journals/aeline-journal :: journal}"></div>
+                        </th:block>
+
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Закрыть
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <!-- 🔹 ЗАГРУЗКА ФОТО -->
+                <div class="photo">
+
+                    <div class="photo-add">
+                        <label class="form-label">Загрузить фотографию:</label>
+
+                        <!-- <div class="drop-area" th:attr="data-work-id=${work.id}, data-ustanovka-id=${ustanovka_id}">
+
+                            <p class="photo-text">Перетащите изображение сюда или</p>
+
+                            <input type="file" th:id="'file-' + ${work.id}" accept="image/*" style="display:none">
+
+                            <button type="button" class="btn btn-light"
+                                th:onclick="'document.getElementById(\'file-' + ${work.id} + '\').click()'">
+                                Выбрать файл
+                            </button>
+
+                            <button type="button" class="btn btn-light upload-btn" style="margin-top:5px;">
+                                Загрузить
+                            </button>
+                           
+                            <img th:id="'preview-' + ${work.id}"
+                                style="max-width:150px; display:none; margin-top:10px;">
+
+                            <div class="upload-status" style="display:none; color:red; margin-top:8px;">
+                                изображение загружено!
+                            </div>
+                        </div> -->
+
+                        <div class="drop-area" id="drop-area">
+
+                            <p class="photo-text">Перетащите изображение сюда или</p>
+
+                            <input type="file" id="fileInput" accept="image/*" style="display:none">
+
+                            <button type="button" class="btn btn-light" onclick="fileInput.click()">
+                                Выбрать файл
+                            </button>
+
+                            <button type="button" class="btn btn-light" id="uploadBtn" style="margin-top:5px;">
+                                Загрузить
+                            </button>
+
+                            <img id="preview" style="max-width:150px; display:none; margin-top:10px;">
+
+                            <div id="uploadStatus" style="display:none; color:red; margin-top:8px;">
+                                фотография загружена!
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 🔹 ПРОСМОТР -->
+                    <div class="photo-view">
+                        <label class="form-label">Фотографии:</label>
+
+                        <!-- <div class="view-area" th:id="'gallery-' + ${work.id}"> -->
+                        <div class="view-area" id="gallery">
+
+
+                            <!-- 🔹 ПРЕВЬЮ (только 2 последних) -->
+                            <!-- <div class="img-wrapper" th:each="img, stat : ${work.images}"
+                                th:if="${stat.index >= work.images.size() - 2}">
+
+                                <a th:href="@{/uploads/works/{u}/{f}(u=${ustanovka.id},f=${img.fileName})}"
+                                    th:attr="data-lightbox='gallery-' + ${work.id}">
+
+                                    <img th:src="@{/uploads/works/{u}/{f}(u=${ustanovka.id},f=${img.fileName})}"
+                                        style="max-height:65px;">
+                                </a>
+
+                                <span class="img-delete" th:attr="data-id=${img.id}">
+                                    ✖
+                                </span>
+                            </div> -->
+
+                            <!-- 🔥 ВСЕ изображения (скрытые, но для lightbox) -->
+                            <!-- <div style="display:none">
+                                <a th:each="img : ${work.images}"
+                                    th:href="@{/uploads/works/{u}/{f}(u=${ustanovka.id},f=${img.fileName})}"
+                                    th:attr="data-lightbox='gallery-' + ${work.id}">
+                                </a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

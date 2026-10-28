@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}">
+
+<div th:fragment="content">
+    <div class="section-header">
+        <!-- <button type="button" class="toggle-btn" onclick="toggleSection(this)">
+            ▶ ▶
+        </button>  -->
+        <button class="toggle-btn" onclick="toggleSection(this)"></button>
+        <h3><strong>Установки катодной защиты</strong></h3>
+    </div>
+
+    <div class="gazoprovods-list" style="display: none;">
+        <div th:each="gazoprovod : ${gazoprovods}" th:if="${#lists.size(gazoprovod.ustanovkas.?[type == 'ukz']) > 0}">
+            <div class="sidebar-block">
+                <div class="name-ustanovka">
+                    <button class="gazoprovod__list" type="button" onclick="toggle(this)"></button>
+                    <div style="font-size: 16px;" th:text="${gazoprovod.name}"></div>
+                </div>
+
+                <div style="display: none; margin-bottom: 25px;">
+                    <li th:each="ustanovka : ${gazoprovod.ustanovkas}" th:if="${ustanovka.type == 'ukz'}">
+                        <a class="ustanovka_style" th:href="@{/ustanovka/{id}(id=${ustanovka.id})}"
+                            th:text="'Установка катодной защиты ' + ${ustanovka.name}">
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <button class="toggle-btn" onclick="toggleSection(this)"></button>
+        <h3><strong>Установки дренажной защиты</strong></h3>
+    </div>
+
+    <div class="gazoprovods-list" style="display: none;">
+        <div th:each="gazoprovod : ${gazoprovods}" th:if="${#lists.size(gazoprovod.ustanovkas.?[type == 'udz']) > 0}">
+            <div class="sidebar-block">
+                <div class="name-ustanovka">
+                    <button class="gazoprovod__list" type="button" onclick="toggle(this)"></button>
+                    <div style="font-size: 16px;" th:text="${gazoprovod.name}"></div>
+                </div>
+
+                <div style="display: none; margin-bottom: 25px;">
+                    <li th:each="ustanovka : ${gazoprovod.ustanovkas}" th:if="${ustanovka.type == 'udz'}">
+                        <a class="ustanovka_style" th:href="@{/ustanovka/{id}(id=${ustanovka.id})}"
+                            th:text="'Установка дренажной защиты ' + ${ustanovka.name}">
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <button class="toggle-btn" onclick="toggleSection(this)"></button>
+        <h3><strong>Установки протекторной защиты</strong></h3>
+    </div>
+
+    <div class="gazoprovods-list" style="display: none;">
+        <div th:each="gazoprovod : ${gazoprovods}" th:if="${#lists.size(gazoprovod.ustanovkas.?[type == 'upz']) > 0}">
+
+            <div class="sidebar-block">
+                <div class="name-ustanovka">
+                    <button class="gazoprovod__list" type="button" onclick="toggle(this)"></button>
+                    <div style="font-size: 16px;" th:text="${gazoprovod.name}"></div>
+                </div>
+
+                <div style="display: none; margin-bottom: 25px;">
+                    <li th:each="ustanovka : ${gazoprovod.ustanovkas}" th:if="${ustanovka.type == 'upz'}">
+                        <a class="ustanovka_style" th:href="@{/ustanovka/{id}(id=${ustanovka.id})}"
+                            th:text="'Установка дренажной защиты ' + ${ustanovka.name}">
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <button class="toggle-btn" onclick="toggleSection(this)"></button>
+        <h3><strong>Воздушные линии электропередачи</strong></h3>
+    </div>
+
+    <div class="gazoprovods-list" style="display: none;">
+
+        <div class="sidebar-block" th:if="${aelineList != null and !#lists.isEmpty(aelineList)}">
+
+            <div style="margin-bottom: 25px;">
+                <li th:each="ustanovka : ${aelineList}">
+                    <a class="ustanovka_style" th:href="@{/ustanovka/{id}(id=${ustanovka.id})}"
+                        th:text="'ВЛ ' + ${ustanovka.name}">
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="sidebar">
+    <a style="color: #fff;" class="t-Header-logo-link">
+        <h3>Техническое обслуживание и ремонт</h3>
+    </a>
+</div>
+
+<div th:fragment="planing">
+    <h3>Запланированные работы</h3>
+
+    <div class="sidebar-block" th:if="${overdueWorks != null and !#lists.isEmpty(overdueWorks)}">
+        <div class="d-flex align-items-center">
+            <button class="toggle-btn" onclick="toggle(this)"></button>
+            <strong style="margin-left: 8px; color: red;">
+                ⚠ Невыполненные
+            </strong>
+        </div>
+
+        <div style="display:none;">
+            <li th:each="work : ${overdueWorks}">
+                <div class="weekWorks">
+                    <div>
+                        <b th:text="${work.ustanovka.name}"></b>
+                    </div>
+
+                    <div style="font-size:13px; color:red;">
+                        <span th:text="${#temporals.format(work.workDate, 'dd.MM.yyyy')}"></span>
+                        —
+                        <span th:text="${work.typeOfWork}"></span>
+                    </div>
+                </div>
+            </li>
+        </div>
+    </div>
+
+    <!-- 🔽 НЕДЕЛЯ -->
+    <div class="sidebar-block">
+        <div class="d-flex align-items-center">
+            <button class="toggle-btn" onclick="toggle(this)"></button>
+            <strong style="margin-left: 8px;">На неделю</strong>
+        </div>
+
+        <div style="display:none;">
+            <li th:each="work : ${weekWorks}">
+                <div class="weekWorks">
+                    <div>
+                        <b th:text="${work.ustanovka.name}"></b>
+                    </div>
+
+                    <div style="font-size:13px;">
+                        <span th:text="${#temporals.format(work.workDate, 'dd.MM.yyyy')}"></span>
+                        —
+                        <span th:text="${work.typeOfWork}"></span>
+                    </div>
+                </div>
+            </li>
+        </div>
+    </div>
+
+    <!-- 🔽 МЕСЯЦ -->
+    <div class="sidebar-block">
+        <button class="toggle-btn" onclick="toggle(this)"></button>
+        <strong style="margin-left: 8px;">На месяц</strong>
+        <div style="display:none;">
+            <li th:each="work : ${monthWorks}">
+                <div class="weekWorks">
+                    <div>
+                        <b th:text="${work.ustanovka.name}"></b>
+                    </div>
+
+                    <div style="font-size:13px;">
+                        <span th:text="${#temporals.format(work.workDate, 'dd.MM.yyyy')}"></span>
+                        —
+                        <span th:text="${work.typeOfWork}"></span>
+                    </div>
+                </div>
+            </li>
+        </div>
+    </div>
+</div>
+
+</html>

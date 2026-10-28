@@ -1,0 +1,125 @@
+<div th:fragment="addWorkModal">
+
+    <div class="modal fade" id="addWorkModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-center">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <h5>Запланировать работу</h5>
+                        <div class="message"></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+
+                <form th:action="@{/ustanovka/{id}/add(id=${ustanovka.id})}" method="post">
+                    <div class="modal-body">
+                        <div class="modal-add">
+
+                            <input type="hidden" name="ustanovka_id" th:value="${ustanovka.id}">
+
+                            <div class="token col-sm-2 pb-2">
+                                <label class="form-label">id установки</label>
+                                <input type="text" th:value="${ustanovka.id}" readonly class="form-control">
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+                                <label class="form-label">Установка</label>
+                                <input type="text" th:value="${ustanovka.name}" readonly class="form-control">
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+                                <label class="form-label">Дата</label>
+                                <input type="date" name="workDate" class="form-control" required>
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+
+                                <label class="form-label">Вид работ</label>
+                                <div style="position: relative; display: inline-block; width: 100%;">
+                                    <div class="box">
+                                        <select name="typeOfWork" class="form-control" required>
+                                            <option value="ТО">ТО</option>
+                                            <option value="ТР">ТР</option>
+                                            <option value="ВНЕПЛАНОВЫЕ">ВНЕПЛАНОВЫЕ</option>
+                                            <option value="АО">Административный осмотр</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <hr> -->
+                        </div>
+                    </div>
+
+
+
+                    <div>
+                        <p>Запланированная техника</p>
+
+                        <div class="id_name-auto">
+                            <div class="token col-sm-3 pb-2">
+                                <div style="position: relative; display: inline-block; width: 100%;">
+                                    <div class="box">
+                                        <select name="auto1" class="form-control">
+                                            <option value="Урал КУНГ">Урал КУНГ</option>
+                                            <option value="УАЗ">УАЗ</option>
+                                            <option value="Автовышка">Автовышка</option>
+                                            <option value="Экскаватор JCB">Экскаватор JCB</option>
+                                            <option value="КАМАЗ бортовой">КАМАЗ бортовой</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="token col-sm-3 pb-2">
+                                <div style="position: relative; display: inline-block; width: 100%;">
+                                    <div class="box">
+                                        <select name="auto2" class="form-control">
+                                            <option value="">Добавить...</option>
+                                            <option value="Урал КУНГ">Урал КУНГ</option>
+                                            <option value="УАЗ">УАЗ</option>
+                                            <option value="Автовышка">Автовышка</option>
+                                            <option value="Экскаватор JCB">Экскаватор JCB</option>
+                                            <option value="КАМАЗ бортовой">КАМАЗ бортовой</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="token col-sm-3 pb-2">
+                                <div style="position: relative; display: inline-block; width: 100%;">
+                                    <div class="box">
+                                        <select name="auto3" class="form-control">
+                                            <option value="">Добавить...</option>
+                                            <option value="Урал КУНГ">Урал КУНГ</option>
+                                            <option value="УАЗ">УАЗ</option>
+                                            <option value="Автовышка">Автовышка</option>
+                                            <option value="Экскаватор JCB">Экскаватор JCB</option>
+                                            <option value="КАМАЗ бортовой">КАМАЗ бортовой</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Закрыть
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            Добавить
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

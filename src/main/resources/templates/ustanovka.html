@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}">
+
+<div th:fragment="content">
+
+    <h3 th:switch="${ustanovka.type}">
+
+        <span th:case="'ukz'">Установка катодной защиты</span>
+        <span th:case="'udz'">Установка дренажной защиты</span>
+        <span th:case="'upz'">Установка протекторной защиты</span>
+        <span th:case="'aeline'">Воздушная линия электропередачи</span>
+
+        <span th:case="*">Установка</span>
+
+    </h3>
+
+    <h3>
+        <span th:text="${ustanovka.name}"></span>
+
+        <span th:if="${ustanovka.gazoprovod != null and ustanovka.type != 'aeline'}">
+            —
+            <span th:text="${ustanovka.gazoprovod.name}"></span>
+        </span>
+    </h3>
+
+    <h3 style="margin-top: 50px; display:flex; justify-content: center;">
+        Запланированные работы
+    </h3>
+   
+    <button class="t-Button t-Button--noLabel t-Button--icon t-Button--success t-Button--noUI" style="margin-left:5px;"
+        onclick="javascript:apex.navigation.dialog('f?p=111:20:4574864100368::NO:RP::\u0026p_dialog_cs=4kymt5pRQtd1JdCrr9UmikfOTzSwFtIyzjYPshy9wQ6xRp4c7oxrrvTNvCXDEIhX4sQBGeu2tkImTBlqlgW_dw',{title:'\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0445 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432',height:'auto',width:'1000',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'',apex.jQuery('#B775208501296205736'));"
+        type="button" id="B775208501296205736" title="Добавить ссылку" aria-label="Добавить ссылку"><span
+            class="t-Icon fa fa-plus-square" aria-hidden="true"></span></button>
+
+    <table>
+        <thead>
+            <tr>
+                <th width="100">Дата</th>
+                <th width="100">Вид работы</th>
+                <th width="300">Техника</th>
+                <th width="200">Статус</th>
+                <th width="200"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr th:each="work : ${works}">
+
+                <td th:text="${work.workDate}"></td>
+                <td th:text="${work.typeOfWork}"></td>
+                <td th:text="${work.auto}"></td>
+
+                <td>
+                    <span th:text="${work.done} ? 'Выполнено' : 'Запланировано'"></span>
+                </td>
+
+                <td>
+
+                    <button type="button" class="btn open-work-modal"
+                        th:classappend="${work.done} ? ' completed' : ' not_completed'" data-bs-toggle="modal"
+                        data-bs-target="#editWorkModal" th:attr="data-id=${work.id}">
+
+                        <span th:text="${work.done} ? 'Просмотреть' : 'Выполнить'"></span>
+                    </button>
+                    <!-- <button type="button" class="btn" th:classappend="${work.done} ? ' completed' : ' not_completed'"
+                        data-bs-toggle="modal" th:attr="data-bs-target='#editWorkModal-' + ${work.id}">
+
+                        <span th:text="${work.done} ? 'Просмотреть' : 'Выполнить'"></span>
+                    </button> -->
+
+                    <!-- ВАЖНО: модалка здесь -->
+                    <!-- <div th:insert="~{editWork :: editWorkModal(
+    work=${work},
+    ustanovka_id=${ustanovka.id},
+    ustanovkaName=${ustanovka.name}
+)}"></div> -->
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button style="margin-top: 15px;" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+        data-bs-target="#addWorkModal">
+        Запланировать работу
+    </button>
+
+    <div th:replace="~{add-work :: addWorkModal}"></div>
+    <div th:replace="~{editWork :: editWorkModal}"></div>
+</div>
+
+<div th:fragment="sidebar">
+    <div class="sidebar_show">
+        <h3 style="text-align: center; margin-top: 50px;">
+            Графики (позже)
+        </h3>
+    </div>
+</div>
+<script src="/js/upload.js"></script>
