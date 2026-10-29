@@ -83,6 +83,7 @@ public class MainController {
         // model.addAttribute("ukzList", ustanovkaService.findByType("ukz"));
         // model.addAttribute("drenageList", ustanovkaService.findByType("drenage"));
         model.addAttribute("aelineList", ustanovkaService.findByType("aeline"));
+        model.addAttribute("showPlaning", true);
 
         return "index";
     }

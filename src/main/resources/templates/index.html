@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}">
+<!-- <!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}"> -->
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: layout(~{::content}, ~{::planing}, ~{::sidebar})}">
 
 <div th:fragment="content">
     <div class="section-header">
@@ -99,12 +101,40 @@
 </div>
 
 <div th:fragment="sidebar">
-    <a style="color: #fff;" class="t-Header-logo-link">
-        <h3>Техническое обслуживание и ремонт</h3>
-    </a>
+
+    <!-- <div class="TreeNav">
+        <span style="padding-top: 8px;" class="fa fa-wrench"></span>
+        <a style="color: #fff;" class="t-Header-logo-link">
+            <h3>ДТОиР</h3>
+        </a>
+    </div> -->
+    <div class="TreeNav">
+        <span style="padding-top: 8px;" class="fa fa-wrench"></span>
+        <a class="t-Header-logo-link">
+            <h3>Техническое обслуживание и ремонт</h3>
+        </a>
+    </div>
+    <div class="TreeNav">
+        <span style="padding-top: 8px;" class="fa fa-file-text" aria-hidden="true"></span>
+        <a th:href="@{/reports/udz}" class="t-Header-logo-link">
+            <h3>Выгрузка отчетов</h3>
+        </a>
+    </div>
+    <div class="TreeNav">
+        <span style="padding-top: 8px;" class="fa fa-bar-chart" aria-hidden="true"></span>
+        <a class="t-Header-logo-link">
+            <h3>Сезонные замеры</h3>
+        </a>
+    </div>
+    <div class="TreeNav">
+        <span class="fa fa fa-television"></span>
+        <a class="t-Header-logo-link">
+            <h3></h3>
+        </a>
+    </div>
 </div>
 
-<div th:fragment="planing">
+<div class="planing" th:fragment="planing">
     <h3>Запланированные работы</h3>
 
     <div class="sidebar-block" th:if="${overdueWorks != null and !#lists.isEmpty(overdueWorks)}">

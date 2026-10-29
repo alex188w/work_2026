@@ -61,10 +61,25 @@ p {
 
 .t-BreadcrumbRegion {
     width: 100%;
+    margin-bottom: 20px;
     padding-left: 20px;
     background-color: rgba(253, 253, 254, .9);
     color: #3e3e3e;
     border-bottom: 1px solid rgba(0, 0, 0, .075);
+}
+
+.t-Breadcrumb-label {
+    cursor: pointer;
+}
+
+.t-Breadcrumb-label:hover {
+    color: #0572CE;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.planing {
+    padding-left: 40px;
 }
 
 .row {
@@ -75,13 +90,49 @@ p {
     border: 1px solid rgba(0, 0, 0, .075);
 }
 
+.TreeNav {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
 
-.t-Header-branding {
+
+/* .t-Header-branding {
     background-color: #0572CE;
     height: 48px;
     z-index: 795;
     padding: 0;
     overflow: hidden;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+} */
+
+.report {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.t-Header-branding {
+    background-color: #0572CE;
+    height: 48px;
+    z-index: 1030;
+    padding: 0;
+    overflow: hidden;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -116,6 +167,8 @@ p {
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
+    color: #fff;
 }
 
 .t-Header-navBar {
@@ -247,6 +300,7 @@ html {
 } */
 
 .content {
+    padding-top: 48px;
     position: relative;
     display: flex;
 }
@@ -278,11 +332,11 @@ html {
     /* Добавляет прокрутку, если содержимое превышает высоту */
     /* background-color: #f1f1f1; */
     background-color: #033b6a;
-    padding: 35px;
+    padding: 15px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     color: #fff;
-    font-size: 14px !important;
+    font-size: 10px !important;
 }
 
 .sidebar_show {

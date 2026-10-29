@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}">
+<!-- <html lang="ru" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout}"> -->
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: layout(~{::content}, ~{}, ~{index :: sidebar})}">
 
 <div th:fragment="content">
 
@@ -26,11 +28,11 @@
     <h3 style="margin-top: 50px; display:flex; justify-content: center;">
         Запланированные работы
     </h3>
-   
-    <button class="t-Button t-Button--noLabel t-Button--icon t-Button--success t-Button--noUI" style="margin-left:5px;"
+
+    <!-- <button class="t-Button t-Button--noLabel t-Button--icon t-Button--success t-Button--noUI" style="margin-left:5px;"
         onclick="javascript:apex.navigation.dialog('f?p=111:20:4574864100368::NO:RP::\u0026p_dialog_cs=4kymt5pRQtd1JdCrr9UmikfOTzSwFtIyzjYPshy9wQ6xRp4c7oxrrvTNvCXDEIhX4sQBGeu2tkImTBlqlgW_dw',{title:'\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0445 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432',height:'auto',width:'1000',maxWidth:'960',modal:true,dialog:null},'t-Dialog-page--standard '+'',apex.jQuery('#B775208501296205736'));"
         type="button" id="B775208501296205736" title="Добавить ссылку" aria-label="Добавить ссылку"><span
-            class="t-Icon fa fa-plus-square" aria-hidden="true"></span></button>
+            class="t-Icon fa fa-plus-square" aria-hidden="true"></span></button> -->
 
     <table>
         <thead>
