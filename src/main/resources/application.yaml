@@ -2,6 +2,14 @@ spring:
   application:
     name: work
 
+  # Максимальный размер одного файла
+  # Максимальный размер одного запроса
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      
+
   datasource:
     url: jdbc:postgresql://localhost:5433/work_db?useUnicode=true&characterEncoding=UTF-8
     hikari.connection-init-sql: SET client_encoding TO 'UTF8'
@@ -19,3 +27,8 @@ spring:
   thymeleaf:
     cache: false
     show-sql: true
+
+# Каталог хранения сезонных замеров
+app:
+  upload:
+    measure-dir: C:/myapp/measure

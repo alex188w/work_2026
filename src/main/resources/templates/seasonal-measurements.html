@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout :: layout(~{::content}, ~{}, ~{index :: sidebar})}">
+
+<div th:fragment="content">
+    <div class="container py-4">
+
+        <h3>Сезонные замеры</h3>
+
+        <!-- Сообщения -->
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}">
+        </div>
+
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}">
+        </div>
+
+        <!-- Добавление года -->
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addYearModal">
+            <i class="fa fa-plus"></i>
+            Добавить год проведения замеров
+        </button>
+
+        <!-- Список годов -->
+        <div class="accordion" id="seasonalAccordion">
+
+            <div class="accordion-item" th:each="year, iter : ${years}">
+
+                <h2 class="accordion-header" th:id="'heading' + ${year.id}">
+
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        th:data-bs-target="'#year' + ${year.id}" aria-expanded="false"
+                        th:aria-controls="'year' + ${year.id}">
+
+                        <span>Сезонные замеры&nbsp;</span>
+                        <span th:text="${year.year}"></span>
+                        <span>&nbsp;год</span>
+
+                    </button>
+                </h2>
+
+                <div class="accordion-collapse collapse" th:id="'year' + ${year.id}"
+                    th:aria-labelledby="'heading' + ${year.id}" data-bs-parent="#seasonalAccordion">
+
+                    <div class="accordion-body">
+
+                        <!-- Список загруженных файлов -->
+                        <div th:if="${!filesByYear[year.id].isEmpty()}">
+
+                            <div class="list-group mb-3">
+
+                                <div class="list-group-item" th:each="file : ${filesByYear[year.id]}">
+
+                                    <a th:href="@{/seasonal-measurements/download/{id}(id=${file.id})}"
+                                        th:text="${file.title}" class="text-decoration-none">
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#uploadFileModal" th:data-year-id="${year.id}">
+                            <i class="fa fa-plus"></i>
+                            Добавить файл
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Модальное окно добавления года -->
+    <div class="modal fade" id="addYearModal" tabindex="-1" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form th:action="@{/seasonal-measurements/add-year}" method="post">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            Добавить год проведения замеров
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <label for="year" class="form-label">
+                            Год
+                        </label>
+
+                        <input type="number" id="year" name="year" class="form-control" min="2000" max="2100" required
+                            placeholder="">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Отмена
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            Создать
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Модальное окно загрузки файла -->
+    <div class="modal fade" id="uploadFileModal" tabindex="-1" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form th:action="@{/seasonal-measurements/upload}" method="post" enctype="multipart/form-data">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Добавить файл сезонных замеров</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <!-- ID выбранного года -->
+                        <input type="hidden" id="uploadYearId" name="yearId">
+
+                        <div class="mb-3">
+                            <label for="fileTitle" class="form-label">
+                                Название файла
+                            </label>
+                            <input type="text" id="fileTitle" name="title" class="form-control" required
+                                placeholder="Например, Замеры 2025.pdf">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="measurementFile" class="form-label">
+                                Выбрать файл
+                            </label>
+                            <input type="file" id="measurementFile" name="file" class="form-control" required>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Отмена
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-upload"></i>
+                            Сохранить
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const uploadModal = document.getElementById('uploadFileModal');
+
+            uploadModal.addEventListener('show.bs.modal', function (event) {
+
+                const button = event.relatedTarget;
+
+                // Получаем ID года из кнопки
+                const yearId = button.getAttribute('data-year-id');
+
+                // Записываем ID в скрытое поле формы
+                document.getElementById('uploadYearId').value = yearId;
+            });
+
+        });
+    </script>
+
+</div>
+
+
+
+</html>

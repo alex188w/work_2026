@@ -72,11 +72,14 @@
             <div class="row" th:insert="~{::content}"></div>
             <div class="t_Body_content_offset" style="height: 35px;"></div>
             <div class="row" th:insert="${planingFragment}"></div>
+            <!-- <div class="row" th:insert="${content}"></div> -->
         </div>
 
         <div class="sidebar">
             <div th:insert="${sidebarFragment}"></div>
         </div>
+
+
 
     </div>
     <script src="/js/upload.js"></script>
