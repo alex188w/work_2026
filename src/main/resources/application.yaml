@@ -13,22 +13,29 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/work_db?useUnicode=true&characterEncoding=UTF-8
     hikari.connection-init-sql: SET client_encoding TO 'UTF8'
-    username: postgres
+    username: postgres 
     password: 18091971
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+      # ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
 
   thymeleaf:
-    cache: false
+    cache: true
+    # cache: false
     show-sql: true
 
 # Каталог хранения сезонных замеров
+# app:
+#   upload:
+#     measure-dir: C:/myapp/measure
+
 app:
   upload:
-    measure-dir: C:/myapp/measure
+    # measure-dir: ${APP_DATA_DIR:C:/ProgramData/TOiR}/measure
+    works-dir: ${APP_DATA_DIR:C:/ProgramData/TOiR}/uploads/works

@@ -59,15 +59,18 @@ public class SeasonalMeasurementFileController {
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
 
-        try
-
-        {
+        try {
             SeasonalMeasurementFile measurementFile = fileRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Файл не найден."));
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Файл не найден."));
 
-            Resource resource = fileService.downloadFile(id);
+            Resource resource = fileService.downloadFile(measurementFile);
 
-            String filename = measurementFile.getTitle();
+            String filename = measurementFile.getOriginalFilename();
+
+            if (filename == null || filename.isBlank()) {
+                filename = measurementFile.getTitle();
+            }
 
             String contentDisposition = org.springframework.http.ContentDisposition
                     .attachment()
@@ -76,12 +79,42 @@ public class SeasonalMeasurementFileController {
                     .toString();
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            contentDisposition)
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(resource);
 
-        } catch (IOException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // @GetMapping("/download/{id}")
+    // public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
+
+    // try
+
+    // {
+    // SeasonalMeasurementFile measurementFile = fileRepository.findById(id)
+    // .orElseThrow(() -> new IllegalArgumentException("Файл не найден."));
+
+    // Resource resource = fileService.downloadFile(id);
+
+    // String filename = measurementFile.getTitle();
+
+    // String contentDisposition = org.springframework.http.ContentDisposition
+    // .attachment()
+    // .filename(filename, StandardCharsets.UTF_8)
+    // .build()
+    // .toString();
+
+    // return ResponseEntity.ok()
+    // .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+    // .contentType(MediaType.APPLICATION_OCTET_STREAM)
+    // .body(resource);
+
+    // } catch (IOException | IllegalArgumentException e) {
+    // return ResponseEntity.notFound().build();
+    // }
+    // }
 }

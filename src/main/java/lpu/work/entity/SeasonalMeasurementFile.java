@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 @Table(name = "seasonal_measurement_files")
 public class SeasonalMeasurementFile {
 
+    // сохранение файлов сезонных замеров в двоичном коде
+    @Column(name = "file_data", columnDefinition = "bytea", nullable = false)
+    private byte[] fileData;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +25,8 @@ public class SeasonalMeasurementFile {
     private String title;
 
     // Уникальное имя файла на диске
-    @Column(name = "stored_filename", nullable = false, unique = true)
-    private String storedFilename;
+    // @Column(name = "stored_filename", nullable = false, unique = true)
+    // private String storedFilename;
 
     // Исходное имя загруженного файла
     @Column(name = "original_filename")
@@ -31,6 +35,14 @@ public class SeasonalMeasurementFile {
     // Дата загрузки
     @Column(name = "upload_date", nullable = false)
     private LocalDateTime uploadDate;
+
+    public byte[] getFileData() {
+        return fileData;
+    }
+
+    public void setFileData(byte[] fileData) {
+        this.fileData = fileData;
+    }
 
     public SeasonalMeasurementFile() {
     }
@@ -55,13 +67,13 @@ public class SeasonalMeasurementFile {
         this.title = title;
     }
 
-    public String getStoredFilename() {
-        return storedFilename;
-    }
+    // public String getStoredFilename() {
+    //     return storedFilename;
+    // }
 
-    public void setStoredFilename(String storedFilename) {
-        this.storedFilename = storedFilename;
-    }
+    // public void setStoredFilename(String storedFilename) {
+    //     this.storedFilename = storedFilename;
+    // }
 
     public String getOriginalFilename() {
         return originalFilename;

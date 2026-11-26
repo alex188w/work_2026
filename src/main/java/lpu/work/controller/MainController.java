@@ -35,10 +35,12 @@ import org.springframework.http.MediaType;
 import java.nio.file.Path;
 
 import java.nio.file.Files;
+import org.springframework.beans.factory.annotation.Value;
 
 @Controller
 public class MainController {
-
+    @Value("${app.upload.works-dir}")
+    private String worksDirectory;
     private final GazoprovodService gazoprovodService;
     private final UstanovkaService ustanovkaService;
     private final UstanovkaRepository ustanovkaRepository;
@@ -211,20 +213,32 @@ public class MainController {
         return new WorkImageResponse(saved.getId(), saved.getFileName());
     }
 
-    @GetMapping("/uploads/works/{ustanovkaId}/{fileName}")
+    @GetMapping("/uploads/works/{ustanovkaId}/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getImage(
             @PathVariable Long ustanovkaId,
             @PathVariable String fileName) throws IOException {
 
-        Path path = Paths.get("uploads/works", String.valueOf(ustanovkaId), fileName);
-        Resource resource = new UrlResource(path.toUri());
+        Path baseDirectory = Paths.get(worksDirectory)
+                .toAbsolutePath()
+                .normalize();
 
-        if (!resource.exists()) {
+        Path directory = baseDirectory
+                .resolve(String.valueOf(ustanovkaId))
+                .normalize();
+
+        Path path = directory.resolve(fileName).normalize();
+
+        if (!path.startsWith(directory) || !Files.isRegularFile(path)) {
             return ResponseEntity.notFound().build();
         }
 
-        MediaType contentType = MediaType.parseMediaType(Files.probeContentType(path));
+        Resource resource = new UrlResource(path.toUri());
+
+        String detectedType = Files.probeContentType(path);
+        MediaType contentType = detectedType != null
+                ? MediaType.parseMediaType(detectedType)
+                : MediaType.APPLICATION_OCTET_STREAM;
 
         return ResponseEntity.ok()
                 .contentType(contentType)

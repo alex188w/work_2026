@@ -34,8 +34,7 @@ public class SeasonalMeasurementYearController {
 
         List<SeasonalMeasurementYear> years = yearRepository.findAllByOrderByYearDesc();
 
-        // Список файлов для каждого года
-        Map<Long, List<lpu.work.entity.SeasonalMeasurementFile>> filesByYear = new HashMap<>();
+        Map<Long, List<SeasonalMeasurementFileRepository.FileInfo>> filesByYear = new HashMap<>();
 
         for (SeasonalMeasurementYear year : years) {
 
@@ -50,6 +49,30 @@ public class SeasonalMeasurementYearController {
 
         return "seasonal-measurements";
     }
+
+    // @GetMapping
+    // public String showPage(Model model) {
+
+    // List<SeasonalMeasurementYear> years =
+    // yearRepository.findAllByOrderByYearDesc();
+
+    // // Список файлов для каждого года
+    // Map<Long, List<lpu.work.entity.SeasonalMeasurementFile>> filesByYear = new
+    // HashMap<>();
+
+    // for (SeasonalMeasurementYear year : years) {
+
+    // filesByYear.put(
+    // year.getId(),
+    // fileRepository.findByMeasurementYearIdOrderByUploadDateDesc(
+    // year.getId()));
+    // }
+
+    // model.addAttribute("years", years);
+    // model.addAttribute("filesByYear", filesByYear);
+
+    // return "seasonal-measurements";
+    // }
 
     // Добавление нового года
     @PostMapping("/add-year")
